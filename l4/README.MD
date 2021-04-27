@@ -132,7 +132,6 @@ when SERVER_DATA {
 * 拷贝以下elasticsearch template文件，并执行命令更新：
 
   ```json
-  [root@F5ELK-NODE01 confbak]# cat f5-l4_template.json 
   {
   "template": "f5-l4-*",
   "mappings": {
@@ -238,9 +237,7 @@ when SERVER_DATA {
       type => 'f5-l4'
     }
   }
-  ```
-
-
+ 
   filter {
     if [message]=~ 'init-delay' {
         grok {
@@ -269,8 +266,6 @@ when SERVER_DATA {
       }
   }
 
-
-
   output {
    if [type] == "f5-l4" {
      elasticsearch {
@@ -281,14 +276,11 @@ when SERVER_DATA {
   }
   ```
 
-  ​
-
-
-  ```
+  
 
   注意：如果你已经在使用其它logstash的配置文件，即同目录下还有其它配置文件，请确保配置文件中的output部分配置了正确的type条件判断，否则可能出现数据被发送到不同的index里。在本例中包含以下两个文件：
 
-  ```shell
+  ```
   [root@F5ELK-NODE01 conf.d]# pwd
   /etc/logstash/conf.d
   [root@F5ELK-NODE01 conf.d]# ll
